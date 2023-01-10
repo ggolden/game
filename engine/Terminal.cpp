@@ -8,7 +8,7 @@ Terminal::Terminal() {
     keypad(stdscr, true);
     set_escdelay(100);
     timeout(0);
-    setScreenBounds({{0, 0}, size()});
+    setScreenBounds(Bounds{{0, 0}, getWidth(), getHeight()});
 }
 
 Terminal::~Terminal() {
@@ -16,23 +16,26 @@ Terminal::~Terminal() {
 }
 
 void Terminal::setScreenBounds(const Bounds &screenBounds) {
-    int tooMuchX = std::max(screenBounds.maxPosition().x() + 1 - size().x(), 0);
-    int tooMuchY = std::max(screenBounds.maxPosition().y() + 1 - size().y(), 0);
-    _screenBounds = {screenBounds.getPosition(),
-                     {screenBounds.getSize().x() - tooMuchX, screenBounds.getSize().y() - tooMuchY}};
+    int tooMuchX = std::max(screenBounds.maxPosition().getX() + 1 - getWidth(), 0);
+    int tooMuchY = std::max(screenBounds.maxPosition().getY() + 1 - getHeight(), 0);
+    Terminal::screenBounds = Bounds{screenBounds.getPosition(),
+                                    screenBounds.getWidth() - tooMuchX, screenBounds.getHeight() - tooMuchY};
 }
 
 void Terminal::display(int c, const Position &position) {
-    Position offsetPosition = position + _screenBounds.getPosition();
-    if (_screenBounds.isInBounds(offsetPosition)) {
-        mvaddch(offsetPosition.y(), offsetPosition.x(), c);
+    Position offsetPosition = position + screenBounds.getPosition();
+    if (screenBounds.hasInBounds(offsetPosition)) {
+        mvaddch(offsetPosition.getY(), offsetPosition.getX(), c);
     }
 }
 
 void Terminal::display(const char *str, const Position &position) {
-    Position offsetPosition = position + _screenBounds.getPosition();
-    if (_screenBounds.isInBounds(offsetPosition)) {
-        mvaddstr(offsetPosition.y(), offsetPosition.x(), str);
+    Position offsetPosition = position + screenBounds.getPosition();
+    if (screenBounds.hasInBounds(offsetPosition)) {
+        mvaddstr(offsetPosition.getY(), offsetPosition.getX(), str);
     }
 }
 
+int Terminal::read() {
+    return getch();
+};

@@ -4,7 +4,7 @@
 #include <chrono>
 
 class Timer {
-    uint64_t _timestamp;
+    uint64_t timestamp;
 
     void init();
 

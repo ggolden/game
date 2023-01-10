@@ -3,10 +3,6 @@
 
 #define ESC 0x1b
 
-World::World() = default;
-
-World::~World() = default;
-
 Command World::parse(int input) {
     switch (input) {
         case 'q':
@@ -44,7 +40,7 @@ void World::display(Terminal &terminal) const {
     }
 }
 
-Position World::positionFromCommand(Command command) {
+Position World::worldTranslationFromMovementCommand(Command command) {
     switch (command) {
         case Command::UP:
             return Position{0, 1};
@@ -61,22 +57,24 @@ Position World::positionFromCommand(Command command) {
 
 void World::processInput(int input) {
     Command command = parse(input);
-    Position adjustment = positionFromCommand(command);
+    Position adjustment = worldTranslationFromMovementCommand(command);
 
-    for (auto &object: objects) {
-        object->setPosition(object -> getPosition() + adjustment);
+    if (adjustment.getX() != 0 || adjustment.getY() != 0) {
+        for (auto &object: objects) {
+            object->setPosition(object->getPosition() + adjustment);
+        }
     }
 }
 
 void World::tick(uint64_t delta) {
-
+    // TODO:
 }
 
-void World::init(const Size &size) {
-    for (auto y = 0; y < size.y(); y++) {
-        putObject(new Object{'1' + y, {size.x() / 2, y}});
+void World::init(int width, int height) {
+    for (auto y = 0; y < height; y++) {
+        putObject(new Object{'1' + y, {width / 2, y}});
     }
-    for (auto x = 0; x < size.x(); x++) {
-        putObject(new Object{'1' + x, {x, size.y() / 2}});
+    for (auto x = 0; x < width; x++) {
+        putObject(new Object{'1' + x, {x, height / 2}});
     }
 }

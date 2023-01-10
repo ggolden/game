@@ -1,30 +1,32 @@
 #ifndef GAME_BOUNDS_H
 #define GAME_BOUNDS_H
 
-#include "Size.h"
 #include "Position.h"
 
 class Bounds {
-    Position _position{0, 0};
-    Size _size{0, 0};
+    Position position{0, 0};
+    int width = 0;
+    int height = 0;
 public:
     Bounds() = default;
 
-    Bounds(const Position &position, const Size &size) : _position(position), _size(size) {}
+    Bounds(const Position &position, int width, int height) : position(position), width(width), height(height) {}
 
     virtual ~Bounds() = default;
 
-    const Position &getPosition() const { return _position; }
+    const Position &getPosition() const { return position; }
 
-    const Size &getSize() const { return _size; }
+    int getWidth() const { return width; }
 
-    bool isInBounds(const Position &position) const;
+    int getHeight() const { return height; }
+
+    bool hasInBounds(const Position &position) const;
 
     bool isOnBorder(const Position &position) const;
 
-    Position minPosition() const { return _position; };
+    Position minPosition() const { return position; };
 
-    Position maxPosition() const { return {_position.x() + _size.x() - 1, _position.y() + _size.y() - 1}; };
+    Position maxPosition() const { return {position.getX() + getWidth() - 1, position.getY() + getHeight() - 1}; };
 };
 
 #endif //GAME_BOUNDS_H

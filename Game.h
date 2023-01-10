@@ -6,8 +6,8 @@
 #include "Command.h"
 
 class Game {
-    World _world;
-    bool _gameOver = false;
+    World world;
+    bool gameOver = false;
 
     void init(Terminal &terminal);
 
@@ -19,7 +19,7 @@ class Game {
 
     void setGameOver();
 
-    bool isGameOver() const { return _gameOver; }
+    bool isGameOver() const { return gameOver; }
 
     void displayUi(Terminal &terminal);
 

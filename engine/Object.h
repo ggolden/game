@@ -3,36 +3,37 @@
 
 #include "Position.h"
 #include "Terminal.h"
-#include "Size.h"
 
 class Object {
-    int _displayChar;
-    Position _position;
-    int _kind;
+    int displayChar;
+    Position position;
+    int kind;
 
 public:
-    Object(int displayChar, const Position &position) : _kind{}, _displayChar{displayChar}, _position{position} {};
+    Object(int displayChar, const Position &position) : kind{}, displayChar{displayChar}, position{position} {};
 
-    Object(int kind, int displayChar, const Position &position) : _kind{kind}, _displayChar{displayChar},
-                                                                  _position{position} {};
+    Object(int kind, int displayChar, const Position &position) : kind{kind}, displayChar{displayChar},
+                                                                  position{position} {};
 
     virtual ~Object() = default;
 
     void setDisplayChar(int displayChar);
 
-    int getDisplayChar() const { return _displayChar; };
+    int getDisplayChar() const { return displayChar; };
 
-    void setPosition(const Position &newPosition);
+    void setPosition(const Position &position);
 
-    const Position &getPosition() const { return _position; };
+    const Position &getPosition() const { return position; };
 
     void setKind(int kind);
 
-    int getKind() const { return _kind; }
+    int getKind() const { return kind; }
 
     bool isA(int kind);
 
-    void display(Terminal &terminal, const Size &offset = {}) const;
+    void display(Terminal &terminal) const;
+
+    void display(Terminal &terminal, int xTranslation, int yTranslation) const;
 };
 
 #endif //GAME_OBJECT_H

@@ -5,7 +5,6 @@
 
 #include "engine/Terminal.h"
 #include "engine/Object.h"
-#include "engine/Size.h"
 #include "Command.h"
 
 class World {
@@ -15,14 +14,14 @@ class World {
 
     static Command parse(int input);
 
-    Position positionFromCommand(Command command);
+    Position worldTranslationFromMovementCommand(Command command);
 
 public:
-    World();
+    World() = default;
 
-    void init(const Size &size);
+    void init(int width, int height);
 
-    virtual ~World();
+    virtual ~World() = default;
 
     void processInput(int input);
 

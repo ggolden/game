@@ -6,8 +6,7 @@
 #include "Bounds.h"
 
 class Terminal {
-    Bounds _screenBounds{{0,0},
-                         {0, 0}};
+    Bounds screenBounds{Position {0, 0}, 0, 0};
 
 public:
     static const int NO_INPUT{-1};
@@ -18,7 +17,7 @@ public:
 
     void setScreenBounds(const Bounds &screenBounds);
 
-    const Bounds & getScreenBounds() { return _screenBounds; }
+    const Bounds & getScreenBounds() { return screenBounds; }
 
     void clearScreen() { erase(); };
 
@@ -28,13 +27,11 @@ public:
 
     void display(const char *str, const Position &position);
 
-    int read() { return getch(); };
+    int read();
 
-    int rows() { return LINES; };
+    int getHeight() { return LINES; };
 
-    int cols() { return COLS; };
-
-    Size size() { return {cols(), rows()}; }
+    int getWidth() { return COLS; };
 };
 
 #endif //GAME_TERMINAL_H
