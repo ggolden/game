@@ -1,22 +1,26 @@
-#ifndef UNTITLED_POSITION_H
-#define UNTITLED_POSITION_H
+#ifndef GAME_POSITION_H
+#define GAME_POSITION_H
+
+#include "Size.h"
 
 class Position {
-    int xPos = 0;
-    int yPos = 0;
+    int _x = 0;
+    int _y = 0;
 
 public:
-    Position(int x, int y) : xPos(x), yPos(y) {};
+    Position(int x, int y) : _x(x), _y(y) {};
 
-    int x() const { return xPos; };
+    int x() const { return _x; };
 
-    int y() const { return yPos; };
+    int y() const { return _y; };
 
     double distance(const Position& other) const;
 
     Position operator+(const Position &positionToAdd) const;
 
+    Position operator+(const Size &size) const;
+
     bool operator==(const Position &otherPosition) const;
 };
 
-#endif //UNTITLED_POSITION_H
+#endif //GAME_POSITION_H

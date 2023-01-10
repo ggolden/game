@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "ui/Terminal.h"
+#include "engine/Terminal.h"
 #include "engine/Object.h"
 #include "engine/Size.h"
-#include "engine/Command.h"
+#include "Command.h"
 
 class World {
     std::vector<std::unique_ptr<Object>> objects;
@@ -20,7 +20,7 @@ class World {
 public:
     World();
 
-    void init(int width, int height);
+    void init(const Size &size);
 
     virtual ~World();
 
@@ -30,6 +30,5 @@ public:
 
     void display(Terminal &terminal) const;
 };
-
 
 #endif //GAME_WORLD_H

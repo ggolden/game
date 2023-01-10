@@ -1,16 +1,20 @@
-#ifndef UNTITLED_SIZE_H
-#define UNTITLED_SIZE_H
+#ifndef GAME_SIZE_H
+#define GAME_SIZE_H
 
 class Size {
-    int xExtent;
-    int yExtent;
+    int _x = 0;
+    int _y = 0;
 
 public:
-    Size(int xExtent, int yExtent);
+    Size() = default;
 
-    int x() const { return xExtent; };
+    Size(int x, int y) : _x(x), _y(y) {};
 
-    int y() const { return yExtent; };
+    virtual ~Size() = default;
+
+    int x() const { return _x; };
+
+    int y() const { return _y; };
 };
 
-#endif //UNTITLED_SIZE_H
+#endif //GAME_SIZE_H

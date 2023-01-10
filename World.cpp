@@ -3,13 +3,9 @@
 
 #define ESC 0x1b
 
-World::World() {
+World::World() = default;
 
-}
-
-World::~World() {
-
-}
+World::~World() = default;
 
 Command World::parse(int input) {
     switch (input) {
@@ -60,7 +56,6 @@ Position World::positionFromCommand(Command command) {
             return Position{1, 0};
         default:
             return Position{0, 0};
-
     }
 }
 
@@ -77,11 +72,11 @@ void World::tick(uint64_t delta) {
 
 }
 
-void World::init(int width, int height) {
-    for (auto y = 0; y < height; y++) {
-        putObject(new Object{'.', {width / 2, y}});
+void World::init(const Size &size) {
+    for (auto y = 0; y < size.y(); y++) {
+        putObject(new Object{'1' + y, {size.x() / 2, y}});
     }
-    for (auto x = 0; x < width; x++) {
-        putObject(new Object{'.', {x, height / 2}});
+    for (auto x = 0; x < size.x(); x++) {
+        putObject(new Object{'1' + x, {x, size.y() / 2}});
     }
 }

@@ -1,19 +1,15 @@
 #include "Bounds.h"
 
-bool Bounds::isOnBorder(const Position &pos) {
-    return (pos.x() == upperLeft().x() || pos.x() == lowerRight().x() || pos.y() == upperLeft().y() ||
-            pos.y() == lowerRight().y());
+bool Bounds::isOnBorder(const Position &pos) const {
+    return (getPosition().x() == minPosition().x()  //
+            || getPosition().x() == maxPosition().x() //
+            || getPosition().y() == minPosition().y() //
+            || getPosition().y() == maxPosition().y());
 }
 
-bool Bounds::isInBounds(const Position &pos) {
-    return (pos.x() > upperLeft().x() && pos.x() < lowerRight().x() && pos.y() > upperLeft().y() &&
-            pos.y() < lowerRight().y());
-}
-
-Position Bounds::upperLeft() {
-    return p;
-}
-
-Position Bounds::lowerRight() {
-    return {p.x() + s.x() - 1, p.y() + s.y() - 1};
+bool Bounds::isInBounds(const Position &pos) const {
+    return (pos.x() >= minPosition().x() //
+            && pos.x() <= maxPosition().x()  //
+            && pos.y() >= minPosition().y()  //
+            && pos.y() <= maxPosition().y());
 }
